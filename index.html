@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediLock | Secure Healthcare</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Medi<span>Lock</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <button class="nav-btn" onclick="showDashboard()">Patient Portal</button>
+            <button class="nav-btn doctor-nav-btn" onclick="showDoctorDashboard()">Doctor Portal</button>
+        </div>
+    </nav>
+
+    <!-- LANDING PAGE -->
+    <main id="landing">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="tag">YOUR HEALTH. YOUR CONTROL.</div>
+                <h1>
+                    Your Medical Data.<br>
+                    <span>Your Permission.</span><br>
+                    Your Security.
+                </h1>
+                <p>
+                    A privacy-first healthcare platform that puts
+                    patients in control of their medical records.
+                    Secure access, transparent permissions and
+                    complete accountability.
+                </p>
+                <button class="primary-btn" onclick="showDashboard()">
+                    Patient Dashboard →
+                </button>
+                <button class="secondary-btn" onclick="showDoctorDashboard()">
+                    Doctor Dashboard →
+                </button>
+            </div>
+
+            <div class="hero-card">
+                <div class="shield">✦</div>
+                <h2>Privacy Protected</h2>
+                <p>Your medical information deserves protection.</p>
+                <div class="status">
+                    <span></span> Security monitoring enabled
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Security at Every Step</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔐 Secure Access</h3>
+                    <p>Controlled access to sensitive medical records.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Patient Consent</h3>
+                    <p>Patients decide who can access their records.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📋 Access History</h3>
+                    <p>Transparent records of medical data access.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PATIENT DASHBOARD -->
+    <main id="dashboard" class="dashboard hidden">
+        <aside class="sidebar">
+            <div class="logo">Medi<span>Lock</span></div>
+            <p class="side-label">PATIENT PORTAL</p>
+
+            <a class="active" href="#dashboard">Overview</a>
+            <a href="#records">My Records</a>
+            <a href="#permissions">Access Permissions</a>
+            <a href="#activity">Security Activity</a>
+
+            <button class="logout-btn" onclick="showLanding()">← Back to Home</button>
+            <button class="portal-switch" onclick="showDoctorDashboard()">Switch to Doctor Portal</button>
+        </aside>
+
+        <section class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <p class="muted">PATIENT DASHBOARD</p>
+                    <h1>Welcome back, Rahul</h1>
+                </div>
+                <div class="profile">R</div>
+            </header>
+
+            <div class="welcome-banner">
+                <div>
+                    <h2>Your health, under your control.</h2>
+                    <p>Manage your records and monitor who accesses them.</p>
+                </div>
+                <span>🛡️ Protected</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p>Medical Records</p>
+                    <h2>03</h2>
+                    <small>Demo records</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Active Permissions</p>
+                    <h2 id="activeCount">01</h2>
+                    <small>Approved doctors</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Security Events</p>
+                    <h2 id="eventCount">02</h2>
+                    <small>Recent activities</small>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="panel" id="records">
+                    <h2>Recent Medical Records</h2>
+
+                    <div class="record">
+                        <div>
+                            <strong>Blood Test Report</strong>
+                            <small>20 October 2026</small>
+                        </div>
+                        <button class="record-tag" onclick="viewRecord('blood')">View</button>
+                    </div>
+
+                    <div class="record">
+                        <div>
+                            <strong>Prescription</strong>
+                            <small>15 October 2026</small>
+                        </div>
+                        <button class="record-tag" onclick="viewRecord('prescription')">View</button>
+                    </div>
+
+                    <div class="record">
+                        <div>
+                            <strong>Health Checkup</strong>
+                            <small>10 October 2026</small>
+                        </div>
+                        <button class="record-tag" onclick="viewRecord('checkup')">View</button>
+                    </div>
+                </div>
+
+                <div class="panel" id="permissions">
+                    <h2>Doctor Permissions</h2>
+
+                    <div class="permission" data-doctor="sharma">
+                        <div>
+                            <strong>Dr. Sharma</strong>
+                            <small>General Physician</small>
+                        </div>
+
+                        <div class="permission-actions">
+                            <span class="approved status-label">Approved</span>
+                            <button type="button" class="revoke-btn"
+                                onclick="updatePermission('sharma', 'Revoked')">
+                                Revoke
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="permission" data-doctor="verma">
+                        <div>
+                            <strong>Dr. Verma</strong>
+                            <small>Cardiologist</small>
+                        </div>
+
+                        <div class="permission-actions">
+                            <span class="pending status-label">Pending</span>
+                            <button type="button" class="approve-btn"
+                                onclick="updatePermission('verma', 'Approved')">
+                                Approve
+                            </button>
+                            <button type="button" class="reject-btn"
+                                onclick="updatePermission('verma', 'Rejected')">
+                                Reject
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel activity" id="activity">
+                <h2>Recent Security Activity</h2>
+
+                <div class="event">
+                    <span class="event-dot green"></span>
+                    <div>
+                        <strong>Doctor accessed medical record</strong>
+                        <small>Authorized access · Demo event</small>
+                    </div>
+                </div>
+
+                <div class="event">
+                    <span class="event-dot red"></span>
+                    <div>
+                        <strong>Unauthorized access denied</strong>
+                        <small>Access blocked · Demo event</small>
+                    </div>
+                </div>
+            </div>
+
+            <p class="disclaimer">
+                DEMO ENVIRONMENT · All displayed patient information is fictional.
+                No real medical records are stored or protected by this demo.
+            </p>
+        </section>
+    </main>
+
+    <!-- DOCTOR DASHBOARD -->
+    <main id="doctorDashboard" class="dashboard hidden">
+        <aside class="sidebar doctor-sidebar">
+            <div class="logo">Medi<span>Lock</span></div>
+            <p class="side-label">DOCTOR PORTAL</p>
+
+            <a class="active" href="#doctorOverview">Overview</a>
+            <a href="#doctorRequests">Access Requests</a>
+            <a href="#doctorPatients">My Patients</a>
+
+            <button class="logout-btn" onclick="showLanding()">← Back to Home</button>
+            <button class="portal-switch" onclick="showDashboard()">Switch to Patient Portal</button>
+        </aside>
+
+        <section class="dashboard-main" id="doctorOverview">
+            <header class="dashboard-header">
+                <div>
+                    <p class="muted">DOCTOR DASHBOARD</p>
+                    <h1>Welcome, Dr. Verma</h1>
+                    <p class="doctor-specialty">Cardiologist · Demo Account</p>
+                </div>
+                <div class="profile doctor-profile">V</div>
+            </header>
+
+            <div class="welcome-banner doctor-banner">
+                <div>
+                    <h2>Patient access, with permission.</h2>
+                    <p>Review patient requests and manage authorized access.</p>
+                </div>
+                <span>🩺 Doctor Portal</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p>Pending Requests</p>
+                    <h2 id="doctorPendingCount">1</h2>
+                    <small>Awaiting your decision</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Authorized Patients</p>
+                    <h2 id="doctorPatientCount">0</h2>
+                    <small>Approved access</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Specialty</p>
+                    <h2 class="specialty-stat">Cardiology</h2>
+                    <small>Doctor profile</small>
+                </div>
+            </div>
+
+            <div class="panel doctor-panel" id="doctorRequests">
+                <h2>Patient Access Requests</h2>
+                <p class="panel-description">
+                    Review requests before accessing patient records.
+                </p>
+
+                <div class="doctor-request" id="rahulRequest">
+                    <div class="patient-avatar">R</div>
+
+                    <div class="request-info">
+                        <strong>Rahul</strong>
+                        <small>Patient ID: DEMO-001</small>
+                        <small>Requested access to medical records</small>
+                    </div>
+
+                    <div class="request-controls" id="rahulRequestControls">
+                        <span class="pending status-label">Pending</span>
+                        <button class="approve-btn"
+                            onclick="doctorRespond('verma', 'Approved')">
+                            Approve
+                        </button>
+                        <button class="reject-btn"
+                            onclick="doctorRespond('verma', 'Rejected')">
+                            Reject
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel doctor-panel" id="doctorPatients">
+                <h2>My Authorized Patients</h2>
+                <p class="panel-description">
+                    Only patients with approved access appear here.
+                </p>
+
+                <div id="authorizedPatients">
+                    <div class="empty-state">
+                        No patients have granted access yet.
+                    </div>
+                </div>
+            </div>
+
+            <p class="disclaimer">
+                DEMO ENVIRONMENT · Fictional doctor and patient information.
+                This prototype does not provide real medical access.
+            </p>
+        </section>
+    </main>
+
+    <!-- PATIENT MEDICAL RECORD POPUP -->
+    <div id="recordModal" class="record-modal hidden">
+        <div class="record-modal-content">
+            <button class="modal-close" onclick="closeRecord()">×</button>
+
+            <p class="muted">MEDILOCK · MEDICAL RECORD</p>
+            <h2 id="modalTitle">Record Title</h2>
+
+            <div class="modal-details">
+                <p><strong>Date:</strong> <span id="modalDate"></span></p>
+                <p><strong>Doctor:</strong> <span id="modalDoctor"></span></p>
+                <p><strong>Type:</strong> <span id="modalType"></span></p>
+            </div>
+
+            <p class="demo-note">
+                Fictional sample information for demonstration only.
+                No actual medical report is available.
+            </p>
+
+            <button class="primary-btn" onclick="closeRecord()">Close Record</button>
+        </div>
+    </div>
+
+    <!-- DOCTOR PATIENT RECORD POPUP -->
+    <div id="doctorRecordModal" class="record-modal hidden">
+        <div class="record-modal-content">
+            <button class="modal-close" onclick="closeDoctorRecord()">×</button>
+
+            <p class="muted">AUTHORIZED DEMO ACCESS</p>
+            <h2>Rahul's Shared Records</h2>
+
+            <div class="modal-details">
+                <p><strong>Blood Test Report</strong> · 20 October 2026</p>
+                <p><strong>Prescription</strong> · 15 October 2026</p>
+                <p><strong>Health Checkup</strong> · 10 October 2026</p>
+            </div>
+
+            <p class="demo-note">
+                Fictional record names and dates only. No medical details
+                or actual documents are available in this demonstration.
+            </p>
+
+            <button class="primary-btn" onclick="closeDoctorRecord()">Close</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
